@@ -23,6 +23,6 @@ do
 	#Waiting for the sampling process completed and cleaning the running container
 	sleep 5
 	cd ..
-	docker rm -f $(docker ps -aq) || echo y | docker system prune
+	docker rm -f $(docker ps -aq); echo y | docker system prune
 done
 

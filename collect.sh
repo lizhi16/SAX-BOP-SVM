@@ -7,6 +7,7 @@ Sampling(){
 		#Can't ensure the intervals of each "cat"
 		cat /proc/$1  | (grep '' >> ./$1-$i.txt)&
 	done
+	wait
 }
 
 #Get the container image name from file $1
@@ -21,8 +22,10 @@ do
         (Sampling zoneinfo)& (Sampling meminfo)& (Sampling slabinfo)& (Sampling diskstats)&
 	
 	#Waiting for the sampling process completed and cleaning the running container
-	sleep 5
+	wait
+	
 	cd ..
 	docker rm -f $(docker ps -aq); echo y | docker system prune
+	#sysctl docker restart
 done
 
